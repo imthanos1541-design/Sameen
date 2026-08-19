@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#09070d">
+<title>For Sameen ♡</title>
+<style>
+:root{--bg:#08070c;--panel:#121019;--panel2:#191521;--pink:#ff72b0;--rose:#ffb7d5;--white:#fff8fc;--muted:#aaa1ac;--line:#29232d}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--white);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif}
+body{overflow-x:hidden}button{font:inherit}.app{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:18px}
+.screen{display:none;width:min(680px,100%);animation:in .55s ease}.screen.show{display:block}
+.card{background:linear-gradient(145deg,rgba(27,22,32,.96),rgba(12,10,16,.97));border:1px solid var(--line);border-radius:30px;padding:28px;box-shadow:0 30px 90px #0009}
+.center{text-align:center}.tiny{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--pink);font-weight:800}
+h1{font-size:clamp(52px,15vw,100px);line-height:.86;letter-spacing:-5px;margin:18px 0}h2{font-size:34px;letter-spacing:-1.5px;margin:10px 0 20px}
+p{line-height:1.7;color:#d8d0d7}.muted{color:var(--muted)}
+.btn{appearance:none;border:0;width:100%;margin-top:20px;padding:16px 20px;border-radius:18px;background:var(--pink);color:#210c17;font-weight:900;cursor:pointer;touch-action:manipulation}.btn.alt{background:#24202a;color:#fff}.btn:active{transform:scale(.98)}
+.logo{font-size:18px;font-weight:900;letter-spacing:2px}.logo span{color:var(--pink)}
+.boot{font-family:ui-monospace,monospace;text-align:left;background:#07070a;border:1px solid #29272d;padding:17px;border-radius:17px;color:#9cf0bb;font-size:12px;line-height:1.9;margin-top:22px}
+.loader{height:7px;background:#29252e;border-radius:9px;overflow:hidden;margin-top:12px}.loader i{display:block;width:0;height:100%;background:var(--pink);transition:width .08s linear}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.box{background:var(--panel2);border:1px solid #28222c;border-radius:18px;padding:16px}.box small{display:block;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-size:9px}.box b{display:block;margin-top:7px;font-size:16px}
+.row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--line)}.score{color:var(--pink);font-weight:900}
+.crime{background:var(--panel2);padding:14px 16px;border-radius:15px;margin:9px 0}.crime::first-letter{color:#ff6686}
+.terminal{font:13px/2 ui-monospace,monospace;background:#07070a;border-radius:18px;padding:19px;color:#a5f3bd}.red{color:#ff647e}
+.quote{font-size:20px;line-height:1.55;color:#fff;margin:22px 0}
+.heart{font-size:70px;animation:pulse 1.1s infinite}.final h2{font-size:clamp(42px,11vw,70px);line-height:.95;letter-spacing:-3px}.letter{text-align:left;font-size:17px;line-height:1.85;color:#ddd5dc}
+.progress{display:flex;gap:6px;justify-content:center;margin-top:22px}.dot{width:7px;height:7px;border-radius:50%;background:#37313a}.dot.on{background:var(--pink)}
+#confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:20}.piece{position:absolute;top:-20px;width:8px;height:13px;animation:fall 3.4s linear forwards}
+@keyframes in{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}@keyframes pulse{50%{transform:scale(1.12)}}@keyframes fall{to{transform:translateY(110vh) rotate(760deg);opacity:0}}
+@media(max-width:500px){.card{padding:22px;border-radius:25px}.grid{grid-template-columns:1fr 1fr}h2{font-size:29px}}
+</style>
+</head>
+<body>
+<div id="confetti"></div>
+<div class="app">
+
+<section class="screen show" data-page="0"><div class="card center">
+<div class="logo">SAMEEN<span>™</span></div><div class="tiny" style="margin-top:28px">PRIVATE BIRTHDAY PROTOCOL</div>
+<h1>HELLO,<br><span style="color:var(--pink)">BIRTHDAY GIRL.</span></h1>
+<p>This highly classified system was created for one specific person.<br>There is absolutely no useful reason for it to exist.</p>
+<div class="boot">> identifying subject... SAMEEN ✓<br>> checking birthday... CONFIRMED ✓<br>> preparing nonsense... READY ✓<div class="loader"><i id="bootbar"></i></div></div>
+<button class="btn" data-next="1">ENTER THE SYSTEM →</button>
+<div class="muted" style="font-size:11px;margin-top:13px">Best experienced at 12:00 AM. 😌</div>
+</div></section>
+
+<section class="screen" data-page="1"><div class="card">
+<div class="tiny">01 / SYSTEM PROFILE</div><h2>Subject: Sameen</h2>
+<div class="grid">
+<div class="box"><small>Status</small><b>Birthday Girl 🎂</b></div><div class="box"><small>Threat level</small><b>Severe</b></div>
+<div class="box"><small>Cuteness</small><b>∞ / 10</b></div><div class="box"><small>Annoyance</small><b>147%</b></div>
+<div class="box"><small>Listening skills</small><b>Under review</b></div><div class="box"><small>Haris tolerance</small><b>Suspiciously high</b></div>
+</div>
+<p class="quote">“Unfortunately, the system has confirmed that you are still you.”</p>
+<button class="btn" data-next="2">RUN ANNUAL REVIEW →</button>
+</div></section>
+
+<section class="screen" data-page="2"><div class="card">
+<div class="tiny">02 / ANNUAL PERFORMANCE REVIEW</div><h2>2026 Results</h2>
+<div class="row"><span>Being cute</span><span class="score">98%</span></div>
+<div class="row"><span>Being annoying</span><span class="score">147%</span></div>
+<div class="row"><span>Making Haris smile</span><span class="score">100%</span></div>
+<div class="row"><span>Listening to Haris</span><span class="score">3%</span></div>
+<div class="row"><span>Making Haris overthink</span><span class="score">999%</span></div>
+<div class="row"><span>Being loved</span><span class="score">∞</span></div>
+<p style="margin-top:20px"><b>Final verdict:</b> retained indefinitely. There is no refund policy.</p>
+<button class="btn" data-next="3">VIEW CRIMINAL RECORD 🚨</button>
+</div></section>
+
+<section class="screen" data-page="3"><div class="card">
+<div class="tiny">03 / CONFIDENTIAL FILE</div><h2>Known Crimes</h2>
+<div class="crime">🔴 Excessive cuteness</div><div class="crime">🔴 Stealing Haris's attention</div>
+<div class="crime">🔴 Causing unnecessary overthinking</div><div class="crime">🔴 Being impossible to stay mad at</div>
+<div class="crime">🔴 Existing at inconvenient distances</div><div class="crime">🔴 Being way too important to one particular idiot</div>
+<p><b>Recommended sentence:</b><br>Life imprisonment with Haris. ❤️</p>
+<button class="btn" data-next="4">OPEN CRITICAL SYSTEM EVENT →</button>
+</div></section>
+
+<section class="screen" data-page="4"><div class="card">
+<div class="tiny">04 / SYSTEM ALERT</div><h2>Uh oh.</h2>
+<div class="terminal"><span class="red">⚠ CRITICAL ERROR: AGE_INCREASE_DETECTED</span><br><br>
+The system has detected that Sameen is getting older.<br><br>
+Attempting to reverse aging...<br>
+<span id="agebar">[░░░░░░░░░░] 0%</span><br><br>
+<span class="red" id="result"></span></div>
+<button class="btn" id="accept" style="display:none">ACCEPT YOUR FATE</button>
+</div></section>
+
+<section class="screen final" data-page="5"><div class="card center">
+<div class="heart">❤️</div><div class="tiny">05 / ACTUAL MESSAGE</div>
+<h2>Happy Birthday,<br><span style="color:var(--pink)">Sameen.</span></h2>
+<div class="letter">
+I know I can't be there with you at 12 tonight, and honestly, that's the one thing I'd change about this birthday.
+<br><br>
+So I made the next best thing: a completely unnecessary website just so I could be the first person to annoy you. 😂
+<br><br>
+I hope this year brings you everything you're praying for, everything you're working for, and a ridiculous amount of happiness.
+<br><br>
+And yes, unfortunately for you, you're stuck with me for another year.
+<br><br>
+No matter how far away I am at 12:00, I hope you know you're being thought about, prayed for, and loved.
+</div>
+<p style="color:var(--pink);font-weight:900;font-size:19px">Happy birthday, my girl. ❤️</p>
+<button class="btn" id="finalBtn">ONE LAST THING…</button>
+</div></section>
+
+</div>
+<script>
+(function(){
+"use strict";
+const screens=[...document.querySelectorAll(".screen")], dots=[];
+let page=0;
+function show(n){
+ if(n<0||n>=screens.length)return;
+ screens.forEach((s,i)=>s.classList.toggle("show",i===n));
+ page=n; window.scrollTo(0,0);
+ if(n===4) startAge();
+ if(n===5) party();
+}
+document.querySelectorAll("[data-next]").forEach(btn=>{
+ btn.addEventListener("click",()=>show(Number(btn.dataset.next)),{passive:true});
+});
+const bar=document.getElementById("bootbar"); let bp=0;
+const boot=setInterval(()=>{bp+=5;bar.style.width=bp+"%";if(bp>=100)clearInterval(boot)},45);
+
+function startAge(){
+ let p=0;const el=document.getElementById("agebar"),res=document.getElementById("result"),btn=document.getElementById("accept");
+ btn.style.display="none";res.textContent="";
+ const t=setInterval(()=>{p+=10;el.textContent="["+"█".repeat(p/10)+"░".repeat(10-p/10)+"] "+p+"%";if(p>=100){clearInterval(t);res.textContent="ERROR: Age cannot be reversed. She is officially older now. 😭";btn.style.display="block"}},110);
+}
+document.getElementById("accept").addEventListener("click",()=>show(5));
+
+function party(){
+ const box=document.getElementById("confetti");
+ for(let i=0;i<100;i++){
+  const x=document.createElement("i");x.className="piece";x.style.left=Math.random()*100+"%";
+  x.style.background=["#ff72b0","#ffd0e3","#ffffff","#9cf0bb","#a9c8ff"][Math.floor(Math.random()*5)];
+  x.style.animationDelay=(Math.random()*.8)+"s";x.style.animationDuration=(2.5+Math.random()*2.5)+"s";
+  box.appendChild(x);setTimeout(()=>x.remove(),6000);
+ }
+}
+document.getElementById("finalBtn").addEventListener("click",function(){
+ party(); this.textContent="I LOVE YOU. ❤️"; this.disabled=true;
+});
+})();
+</script>
+</body>
+</html>
