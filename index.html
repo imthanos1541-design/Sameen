@@ -192,37 +192,77 @@ No matter how far away I am right now, I hope you know you're being thought abou
 <script>
 (function(){
 "use strict";
-const screens=[...document.querySelectorAll(".screen")], dots=[];
-let page=0;
+
+const screens = [...document.querySelectorAll(".screen")];
+let page = 0;
+
 function show(n){
- if(n<0||n>=screens.length)return;
- screens.forEach((s,i)=>s.classList.toggle("show",i===n));
- page=n; window.scrollTo(0,0);
- if(n===4) startAge();
-if(n===5) party();
-if(n===6) startFireworks();
+    if(n < 0 || n >= screens.length) return;
+    screens.forEach((s, i) => s.classList.toggle("show", i === n));
+    page = n; 
+    window.scrollTo(0, 0);
+
+    if(n === 4) startAge();
+    if(n === 5) party();
+    if(n === 6) startFireworks();
 }
-document.querySelectorAll("[data-next]").forEach(btn=>{
- btn.addEventListener("click",()=>show(Number(btn.dataset.next)),{passive:true});
+
+// Global Next Buttons
+document.querySelectorAll("[data-next]").forEach(btn => {
+    btn.addEventListener("click", () => show(Number(btn.dataset.next)));
 });
-const bar=document.getElementById("bootbar"); let bp=0;
-const boot=setInterval(()=>{bp+=5;bar.style.width=bp+"%";if(bp>=100)clearInterval(boot)},45);
 
+// Bootloader Bar (Page 0)
+const bar = document.getElementById("bootbar"); 
+let bp = 0;
+const boot = setInterval(() => {
+    bp += 5;
+    if(bar) bar.style.width = bp + "%";
+    if(bp >= 100) clearInterval(boot);
+}, 45);
+
+// Age Timer Functionality (Page 4)
 function startAge(){
- let p=0;const el=document.getElementById("agebar"),res=document.getElementById("result"),btn=document.getElementById("accept");
- btn.style.display="none";res.textContent="";
- const t=setInterval(()=>{p+=10;el.textContent="["+"█".repeat(p/10)+"░".repeat(10-p/10)+"] "+p+"%";if(p>=100){clearInterval(t);res.textContent="ERROR: Age cannot be reversed. She is officially older now. 😭";btn.style.display="block"}},110);
-}
-document.getElementById("accept").addEventListener("click",()=>show(5));
+    let p = 0;
+    const el = document.getElementById("agebar");
+    const res = document.getElementById("result");
+    const btn = document.getElementById("accept");
 
+    if(btn) btn.style.display = "none";
+    if(res) res.textContent = "";
+
+    const t = setInterval(() => {
+        p += 10;
+        if(el) el.textContent = "[" + "█".repeat(p/10) + "░".repeat(10 - p/10) + "] " + p + "%";
+        if(p >= 100){
+            clearInterval(t);
+            if(res) res.textContent = "ERROR: Age cannot be reversed. She is officially older now. 😭";
+            if(btn) btn.style.display = "block";
+        }
+    }, 110);
+}
+
+// Safely bind the "ACCEPT YOUR FATE" button
+const acceptBtn = document.getElementById("accept");
+if(acceptBtn){
+    acceptBtn.addEventListener("click", () => show(5));
+}
+
+// Confetti Effect (Page 5)
 function party(){
- const box=document.getElementById("confetti");
- for(let i=0;i<100;i++){
-  const x=document.createElement("i");x.className="piece";x.style.left=Math.random()*100+"%";
-  x.style.background=["#ff72b0","#ffd0e3","#ffffff","#9cf0bb","#a9c8ff"][Math.floor(Math.random()*5)];
-  x.style.animationDelay=(Math.random()*.8)+"s";x.style.animationDuration=(2.5+Math.random()*2.5)+"s";
-  box.appendChild(x);setTimeout(()=>x.remove(),6000);
- }
+    const box = document.getElementById("confetti");
+    if(!box) return;
+    box.innerHTML = ""; // Clear existing pieces
+    for(let i = 0; i < 100; i++){
+        const x = document.createElement("i");
+        x.className = "piece";
+        x.style.left = Math.random() * 100 + "%";
+        x.style.background = ["#ff72b0","#ffd0e3","#ffffff","#9cf0bb","#a9c8ff"][Math.floor(Math.random()*5)];
+        x.style.animationDelay = (Math.random() * 0.8) + "s";
+        x.style.animationDuration = (2.5 + Math.random() * 2.5) + "s";
+        box.appendChild(x);
+        setTimeout(() => x.remove(), 6000);
+    }
 }
 
 // BACKGROUND SLIDESHOW
@@ -238,13 +278,11 @@ const photos = [
     "https://raw.githubusercontent.com/imthanos1541-design/Sameen/main/Photo10.JPG"
 ];
 
-// Preload all photos
 photos.forEach(src => {
     const img = new Image();
     img.src = src;
 });
 
-// Create two background layers
 const bg1 = document.createElement("div");
 const bg2 = document.createElement("div");
 
@@ -269,7 +307,6 @@ setupBg(bg2);
 
 bg1.style.backgroundImage = `url("${photos[0]}")`;
 bg1.style.opacity = "1";
-
 bg2.style.opacity = "0";
 
 document.body.appendChild(bg1);
@@ -280,7 +317,6 @@ let showingFirst = true;
 
 setInterval(() => {
     photoIndex = (photoIndex + 1) % photos.length;
-
     const next = showingFirst ? bg2 : bg1;
     const current = showingFirst ? bg1 : bg2;
 
@@ -290,104 +326,102 @@ setInterval(() => {
 
     showingFirst = !showingFirst;
 }, 5000);
+
+// Fireworks Animation (Page 6)
+let fireworksRunning = false;
 function startFireworks(){
+    if(fireworksRunning) return;
+    fireworksRunning = true;
+
     const canvas = document.getElementById("fireworks");
+    if(!canvas) return;
     const ctx = canvas.getContext("2d");
 
-    let w, h;
-
     function resize(){
-        w = canvas.width = window.innerWidth * devicePixelRatio;
-        h = canvas.height = window.innerHeight * devicePixelRatio;
+        canvas.width = window.innerWidth * devicePixelRatio;
+        canvas.height = window.innerHeight * devicePixelRatio;
         canvas.style.width = window.innerWidth + "px";
         canvas.style.height = window.innerHeight + "px";
         ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
     }
 
     resize();
-    window.addEventListener("resize",resize);
+    window.addEventListener("resize", resize);
 
     const fireworks = [];
     const particles = [];
 
-    function random(min,max){
-        return Math.random() * (max-min) + min;
+    function random(min, max){
+        return Math.random() * (max - min) + min;
     }
 
     function createFirework(){
         fireworks.push({
-            x:random(50,window.innerWidth-50),
-            y:window.innerHeight + 10,
-            targetY:random(80,window.innerHeight * .55),
-            speed:random(7,11),
-            hue:random(0,360)
+            x: random(50, window.innerWidth - 50),
+            y: window.innerHeight + 10,
+            targetY: random(80, window.innerHeight * 0.55),
+            speed: random(7, 11),
+            hue: random(0, 360)
         });
     }
 
     function explode(fw){
         const amount = 75;
-
-        for(let i=0;i<amount;i++){
+        for(let i = 0; i < amount; i++){
             const angle = (Math.PI * 2 * i) / amount;
-            const speed = random(2,7);
-
+            const speed = random(2, 7);
             particles.push({
-                x:fw.x,
-                y:fw.y,
-                vx:Math.cos(angle)*speed,
-                vy:Math.sin(angle)*speed,
-                life:1,
-                decay:random(.012,.022),
-                hue:fw.hue,
-                size:random(1,3)
+                x: fw.x,
+                y: fw.y,
+                vx: Math.cos(angle) * speed,
+                vy: Math.sin(angle) * speed,
+                life: 1,
+                decay: random(0.012, 0.022),
+                hue: fw.hue,
+                size: random(1, 3)
             });
         }
     }
 
     function animate(){
-        ctx.fillStyle="rgba(3,2,7,.18)";
-        ctx.fillRect(0,0,window.innerWidth,window.innerHeight);
+        ctx.fillStyle = "rgba(3, 2, 7, 0.18)";
+        ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
-        // Launch fireworks
-        if(Math.random() < .045){
+        if(Math.random() < 0.045){
             createFirework();
         }
 
-        // Rockets
-        for(let i=fireworks.length-1;i>=0;i--){
-            const fw=fireworks[i];
-
+        for(let i = fireworks.length - 1; i >= 0; i--){
+            const fw = fireworks[i];
             fw.y -= fw.speed;
 
             ctx.beginPath();
-            ctx.arc(fw.x,fw.y,2,0,Math.PI*2);
-            ctx.fillStyle=`hsl(${fw.hue},100%,70%)`;
+            ctx.arc(fw.x, fw.y, 2, 0, Math.PI * 2);
+            ctx.fillStyle = `hsl(${fw.hue}, 100%, 70%)`;
             ctx.fill();
 
             if(fw.y <= fw.targetY){
                 explode(fw);
-                fireworks.splice(i,1);
+                fireworks.splice(i, 1);
             }
         }
 
-        // Explosions
-        for(let i=particles.length-1;i>=0;i--){
-            const p=particles[i];
-
+        for(let i = particles.length - 1; i >= 0; i--){
+            const p = particles[i];
             p.x += p.vx;
             p.y += p.vy;
-            p.vy += .045;
-            p.vx *= .985;
-            p.vy *= .985;
+            p.vy += 0.045;
+            p.vx *= 0.985;
+            p.vy *= 0.985;
             p.life -= p.decay;
 
             ctx.beginPath();
-            ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-            ctx.fillStyle=`hsla(${p.hue},100%,70%,${p.life})`;
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fillStyle = `hsla(${p.hue}, 100%, 70%, ${p.life})`;
             ctx.fill();
 
-            if(p.life<=0){
-                particles.splice(i,1);
+            if(p.life <= 0){
+                particles.splice(i, 1);
             }
         }
 
@@ -395,8 +429,9 @@ function startFireworks(){
     }
 
     animate();
-}   
+}
 })();
 </script>
+
 </body>
 </html>
