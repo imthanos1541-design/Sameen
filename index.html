@@ -154,13 +154,12 @@ function party(){
   x.style.animationDelay=(Math.random()*.8)+"s";x.style.animationDuration=(2.5+Math.random()*2.5)+"s";
   box.appendChild(x);setTimeout(()=>x.remove(),6000);
  }
-}
-document.getElementById("finalBtn").addEventListener("click",function(){
+}document.getElementById("finalBtn").addEventListener("click",function(){
  party(); this.textContent="I LOVE YOU. ❤️🥹"; this.disabled=true;
 });
-   // Background slideshow
-// Background slideshow
-const backgrounds = [
+
+// BACKGROUND SLIDESHOW
+const photos = [
     "https://raw.githubusercontent.com/imthanos1541-design/Sameen/main/Photo1.JPG",
     "https://raw.githubusercontent.com/imthanos1541-design/Sameen/main/Photo2.JPG",
     "https://raw.githubusercontent.com/imthanos1541-design/Sameen/main/Photo3.JPG",
@@ -172,51 +171,29 @@ const backgrounds = [
     "https://raw.githubusercontent.com/imthanos1541-design/Sameen/main/Photo10.JPG"
 ];
 
-const bg1 = document.createElement("div");
-const bg2 = document.createElement("div");
+const bg = document.createElement("div");
 
-function setupBackground(el) {
-    el.style.position = "fixed";
-    el.style.inset = "0";
-    el.style.backgroundSize = "cover";
-    el.style.backgroundPosition = "center";
-    el.style.backgroundRepeat = "no-repeat";
-    el.style.transition = "opacity 1.5s ease-in-out";
-    el.style.pointerEvents = "none";
-    el.style.zIndex = "0";
-}
+bg.style.position = "fixed";
+bg.style.top = "0";
+bg.style.left = "0";
+bg.style.width = "100%";
+bg.style.height = "100%";
+bg.style.zIndex = "0";
+bg.style.backgroundSize = "cover";
+bg.style.backgroundPosition = "center";
+bg.style.backgroundRepeat = "no-repeat";
+bg.style.backgroundImage = `url("${photos[0]}")`;
+bg.style.pointerEvents = "none";
 
-setupBackground(bg1);
-setupBackground(bg2);
+document.body.appendChild(bg);
 
-bg1.style.backgroundImage = `url("${backgrounds[0]}")`;
-bg1.style.opacity = "1";
-bg2.style.opacity = "0";
-
-document.body.appendChild(bg1);
-document.body.appendChild(bg2);
-
-// Preload all photos
-backgrounds.forEach(src => {
-    const img = new Image();
-    img.src = src;
-});
-
-let current = 0;
-let firstVisible = true;
+let photoIndex = 0;
 
 setInterval(() => {
-    current = (current + 1) % backgrounds.length;
-
-    const next = firstVisible ? bg2 : bg1;
-    const currentLayer = firstVisible ? bg1 : bg2;
-
-    next.style.backgroundImage = `url("${backgrounds[current]}")`;
-    next.style.opacity = "1";
-    currentLayer.style.opacity = "0";
-
-    firstVisible = !firstVisible;
+    photoIndex = (photoIndex + 1) % photos.length;
+    bg.style.backgroundImage = `url("${photos[photoIndex]}")`;
 }, 5000);
+   
 })();
 </script>
 </body>
