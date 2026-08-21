@@ -17,7 +17,7 @@ body::after{
     background:rgba(8,7,12,.58);
     pointer-events:none;
 }
- button{font:inherit}.app{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:18px}
+ button{font:inherit}.app{position:relative;z-index:2;min-height:100svh;display:flex;align-items:center;justify-content:center;padding:18px}
 .screen{display:none;width:min(680px,100%);animation:in .55s ease}.screen.show{display:block}
 .card{
     background:linear-gradient(145deg,rgba(27,22,32,.72),rgba(12,10,16,.78));
@@ -177,7 +177,7 @@ let currentBackground = 0;
 const bgLayer = document.createElement("div");
 bgLayer.style.position = "fixed";
 bgLayer.style.inset = "0";
-bgLayer.style.zIndex = "-2";
+bgLayer.style.zIndex = "0";
 bgLayer.style.backgroundSize = "cover";
 bgLayer.style.backgroundPosition = "center";
 bgLayer.style.backgroundRepeat = "no-repeat";
