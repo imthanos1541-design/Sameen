@@ -158,6 +158,45 @@ function party(){
 document.getElementById("finalBtn").addEventListener("click",function(){
  party(); this.textContent="I LOVE YOU. ❤️🥹"; this.disabled=true;
 });
+    // Background slideshow
+const backgrounds = [
+    "photo1.Jpg",
+    "photo2.jpeg",
+    "photo3.jpeg",
+    "photo4.jpeg",
+    "photo5.jpeg",
+    "photo6.jpeg",
+    "photo7.jpeg",
+    "photo8.jpeg",
+    "photo9.jpeg",
+    "photo10.jpeg"
+];
+
+let currentBackground = 0;
+
+const bgLayer = document.createElement("div");
+bgLayer.style.position = "fixed";
+bgLayer.style.inset = "0";
+bgLayer.style.zIndex = "-2";
+bgLayer.style.backgroundSize = "cover";
+bgLayer.style.backgroundPosition = "center";
+bgLayer.style.backgroundRepeat = "no-repeat";
+bgLayer.style.backgroundImage = `url("${backgrounds[0]}")`;
+bgLayer.style.transition = "opacity 1.5s ease-in-out";
+document.body.prepend(bgLayer);
+
+setInterval(() => {
+    currentBackground = (currentBackground + 1) % backgrounds.length;
+
+    bgLayer.style.opacity = "0";
+
+    setTimeout(() => {
+        bgLayer.style.backgroundImage =
+            `url("${backgrounds[currentBackground]}")`;
+        bgLayer.style.opacity = "1";
+    }, 750);
+
+}, 5000);
 })();
 </script>
 </body>
