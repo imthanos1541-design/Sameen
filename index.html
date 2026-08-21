@@ -99,10 +99,10 @@ p{line-height:1.7;color:#d8d0d7}.muted{color:var(--muted)}
 <div class="app">
 
 <section class="screen show" data-page="0"><div class="card center">
-<div class="logo">SAMEEN<span>™</span></div><div class="tiny" style="margin-top:28px">PRIVATE BIRTHDAY PROTOCOL</div>
+<div class="logo">Dr SAMEEN<span>™</span></div><div class="tiny" style="margin-top:28px">PRIVATE BIRTHDAY PROTOCOL</div>
 <h1>HELLO,<br><span style="color:var(--pink)">BIRTHDAY GIRL.</span></h1>
 <p>This highly classified system was created for one specific person.<br>The only reason for it to exist is to make her feel special.</p>
-<div class="boot">> identifying subject... SAMEEN ✓<br>> checking birthday... CONFIRMED ✓<br>> preparing nonsense... READY ✓<div class="loader"><i id="bootbar"></i></div></div>
+<div class="boot">> identifying subject... SAMEEN ✓<br>> checking birthday... CONFIRMED ✓<br>> preparing surprise... READY ✓<div class="loader"><i id="bootbar"></i></div></div>
 <button class="btn" data-next="1">ENTER THE SYSTEM →</button>
 <div class="muted" style="font-size:11px;margin-top:13px">Best experienced at 12:00 AM. 😌</div>
 </div></section>
@@ -143,7 +143,7 @@ p{line-height:1.7;color:#d8d0d7}.muted{color:var(--muted)}
 <div class="tiny">04 / SYSTEM ALERT</div><h2>Uh oh.</h2>
 <div class="terminal"><span class="red">⚠ CRITICAL ERROR: HOTTNESS_INCREASE_DETECTED</span><br><br>
 The system has detected that Sameen is getting older yet hotter.<br><br>
-Attempting to reverse aging...<br>
+Attempting to reverse aging and hottness...<br>
 <span id="agebar">[░░░░░░░░░░] 0%</span><br><br>
 <span class="red" id="result"></span></div>
 <button class="btn" id="accept" style="display:none">ACCEPT YOUR FATE</button>
@@ -236,7 +236,7 @@ function startAge(){
         if(el) el.textContent = "[" + "█".repeat(p/10) + "░".repeat(10 - p/10) + "] " + p + "%";
         if(p >= 100){
             clearInterval(t);
-            if(res) res.textContent = "ERROR: Age cannot be reversed. She is officially older now. 😭";
+            if(res) res.textContent = "ERROR: Cannot be reversed. She is officially older and hotter now. 😭";
             if(btn) btn.style.display = "block";
         }
     }, 110);
