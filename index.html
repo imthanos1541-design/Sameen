@@ -13,7 +13,7 @@ body::after{
     content:"";
     position:fixed;
     inset:0;
-    z-index:-1;
+    z-index:1;
     background:rgba(8,7,12,.58);
     pointer-events:none;
 }
@@ -158,26 +158,43 @@ function party(){
 document.getElementById("finalBtn").addEventListener("click",function(){
  party(); this.textContent="I LOVE YOU. ❤️🥹"; this.disabled=true;
 });
-    // Background slideshow
+   // Background slideshow
 const backgrounds = [
-    "Photo1.JPG",
+    "https://raw.githubusercontent.com/imthanos1541-design/Sameen/main/Photo1.JPG",
+    "https://raw.githubusercontent.com/imthanos1541-design/Sameen/main/Photo2.JPG",
+    "https://raw.githubusercontent.com/imthanos1541-design/Sameen/main/Photo3.JPG",
+    "https://raw.githubusercontent.com/imthanos1541-design/Sameen/main/Photo4.jpg",
+    "https://raw.githubusercontent.com/imthanos1541-design/Sameen/main/Photo5.JPG",
+    "https://raw.githubusercontent.com/imthanos1541-design/Sameen/main/Photo6.JPG",
+    "https://raw.githubusercontent.com/imthanos1541-design/Sameen/main/Photo7.JPG",
+    "https://raw.githubusercontent.com/imthanos1541-design/Sameen/main/Photo9.JPG",
+    "https://raw.githubusercontent.com/imthanos1541-design/Sameen/main/Photo10.JPG"
 ];
 
 let currentBackground = 0;
 
 const bgLayer = document.createElement("div");
-bgLayer.style.position = "fixed";
-bgLayer.style.inset = "0";
-bgLayer.style.zIndex = "0";
-bgLayer.style.backgroundSize = "cover";
-bgLayer.style.backgroundPosition = "center";
-bgLayer.style.backgroundRepeat = "no-repeat";
-bgLayer.style.backgroundImage = `url("${backgrounds[0]}")`;
-bgLayer.style.transition = "opacity 1.5s ease-in-out";
-document.body.prepend(bgLayer);
+
+Object.assign(bgLayer.style, {
+    position: "fixed",
+    top: "0",
+    left: "0",
+    width: "100%",
+    height: "100%",
+    backgroundImage: `url("${backgrounds[0]}")`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    zIndex: "1",
+    pointerEvents: "none",
+    transition: "opacity 1.5s ease"
+});
+
+document.body.appendChild(bgLayer);
 
 setInterval(() => {
-    currentBackground = (currentBackground + 1) % backgrounds.length;
+    currentBackground =
+        (currentBackground + 1) % backgrounds.length;
 
     bgLayer.style.opacity = "0";
 
