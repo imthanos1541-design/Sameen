@@ -45,6 +45,56 @@ p{line-height:1.7;color:#d8d0d7}.muted{color:var(--muted)}
 #confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:20}.piece{position:absolute;top:-20px;width:8px;height:13px;animation:fall 3.4s linear forwards}
 @keyframes in{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}@keyframes pulse{50%{transform:scale(1.12)}}@keyframes fall{to{transform:translateY(110vh) rotate(760deg);opacity:0}}
 @media(max-width:500px){.card{padding:22px;border-radius:25px}.grid{grid-template-columns:1fr 1fr}h2{font-size:29px}}
+.fireworks-screen{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100svh;
+    padding:0;
+    z-index:10;
+    overflow:hidden;
+    background:#030207;
+}
+
+.fireworks-screen.show{
+    display:block;
+}
+
+#fireworks{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+}
+
+.fireworks-message{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    width:min(600px,90%);
+    text-align:center;
+    pointer-events:none;
+    z-index:2;
+    text-shadow:0 3px 25px #000;
+}
+
+.fireworks-message h2{
+    font-size:clamp(42px,11vw,76px);
+    line-height:.95;
+    letter-spacing:-3px;
+    margin:18px 0;
+}
+
+.fireworks-message h2 span{
+    color:var(--pink);
+}
+
+.fireworks-message p{
+    font-size:17px;
+    color:#eee;
+    line-height:1.7;
+} 
 </style>
 </head>
 <body>
@@ -56,7 +106,7 @@ p{line-height:1.7;color:#d8d0d7}.muted{color:var(--muted)}
 <h1>HELLO,<br><span style="color:var(--pink)">BIRTHDAY GIRL.</span></h1>
 <p>This highly classified system was created for one specific person.<br>There is absolutely no useful reason for it to exist.</p>
 <div class="boot">> identifying subject... SAMEEN ✓<br>> checking birthday... CONFIRMED ✓<br>> preparing nonsense... READY ✓<div class="loader"><i id="bootbar"></i></div></div>
-<button class="btn" data-next="1">ENTER THE SYSTEM →</button>
+<button class="btn" data-next="6">ONE LAST THING…</button>
 <div class="muted" style="font-size:11px;margin-top:13px">Best experienced at 12:00 AM. 😌</div>
 </div></section>
 
@@ -104,7 +154,7 @@ Attempting to reverse aging...<br>
 
 <section class="screen final" data-page="5"><div class="card center">
 <div class="heart">❤️</div><div class="tiny">05 / ACTUAL MESSAGE</div>
-<h2>Happy Birthday Babe,<br><span style="color:var(--pink)">Sameen.</span></h2>
+<h2>Happy Birthday,<br><span style="color:var(--pink)">BABY.</span></h2>
 <div class="letter">
 I know I can't be there with you at 12 tonight🥹, and honestly, that's the one thing I'd change about this birthday🤌🏾
 <br><br>
@@ -120,6 +170,20 @@ No matter how far away I am right now, I hope you know you're being thought abou
 <button class="btn" id="finalBtn">ONE LAST THING…</button>
 </div></section>
 
+<section class="screen fireworks-screen" data-page="6">
+    <canvas id="fireworks"></canvas>
+
+    <div class="fireworks-message">
+        <div class="tiny">06 / ONE LAST THING</div>
+        <h2>For you,<br><span>Sameen. ❤️</span></h2>
+        <p>
+            Since I couldn't give you real fireworks...
+            <br>
+            I made you some. 🥹
+        </p>
+    </div>
+</section>
+    
 </div>
 <script>
 (function(){
@@ -131,7 +195,8 @@ function show(n){
  screens.forEach((s,i)=>s.classList.toggle("show",i===n));
  page=n; window.scrollTo(0,0);
  if(n===4) startAge();
- if(n===5) party();
+if(n===5) party();
+if(n===6) startFireworks();
 }
 document.querySelectorAll("[data-next]").forEach(btn=>{
  btn.addEventListener("click",()=>show(Number(btn.dataset.next)),{passive:true});
@@ -154,8 +219,7 @@ function party(){
   x.style.animationDelay=(Math.random()*.8)+"s";x.style.animationDuration=(2.5+Math.random()*2.5)+"s";
   box.appendChild(x);setTimeout(()=>x.remove(),6000);
  }
-}document.getElementById("finalBtn").addEventListener("click",function(){
- party(); this.textContent="I LOVE YOU. ❤️🥹"; this.disabled=true;
+}
 });
 
 // BACKGROUND SLIDESHOW
@@ -223,7 +287,112 @@ setInterval(() => {
 
     showingFirst = !showingFirst;
 }, 5000);
-   
+function startFireworks(){
+    const canvas = document.getElementById("fireworks");
+    const ctx = canvas.getContext("2d");
+
+    let w, h;
+
+    function resize(){
+        w = canvas.width = window.innerWidth * devicePixelRatio;
+        h = canvas.height = window.innerHeight * devicePixelRatio;
+        canvas.style.width = window.innerWidth + "px";
+        canvas.style.height = window.innerHeight + "px";
+        ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+    }
+
+    resize();
+    window.addEventListener("resize",resize);
+
+    const fireworks = [];
+    const particles = [];
+
+    function random(min,max){
+        return Math.random() * (max-min) + min;
+    }
+
+    function createFirework(){
+        fireworks.push({
+            x:random(50,window.innerWidth-50),
+            y:window.innerHeight + 10,
+            targetY:random(80,window.innerHeight * .55),
+            speed:random(7,11),
+            hue:random(0,360)
+        });
+    }
+
+    function explode(fw){
+        const amount = 75;
+
+        for(let i=0;i<amount;i++){
+            const angle = (Math.PI * 2 * i) / amount;
+            const speed = random(2,7);
+
+            particles.push({
+                x:fw.x,
+                y:fw.y,
+                vx:Math.cos(angle)*speed,
+                vy:Math.sin(angle)*speed,
+                life:1,
+                decay:random(.012,.022),
+                hue:fw.hue,
+                size:random(1,3)
+            });
+        }
+    }
+
+    function animate(){
+        ctx.fillStyle="rgba(3,2,7,.18)";
+        ctx.fillRect(0,0,window.innerWidth,window.innerHeight);
+
+        // Launch fireworks
+        if(Math.random() < .045){
+            createFirework();
+        }
+
+        // Rockets
+        for(let i=fireworks.length-1;i>=0;i--){
+            const fw=fireworks[i];
+
+            fw.y -= fw.speed;
+
+            ctx.beginPath();
+            ctx.arc(fw.x,fw.y,2,0,Math.PI*2);
+            ctx.fillStyle=`hsl(${fw.hue},100%,70%)`;
+            ctx.fill();
+
+            if(fw.y <= fw.targetY){
+                explode(fw);
+                fireworks.splice(i,1);
+            }
+        }
+
+        // Explosions
+        for(let i=particles.length-1;i>=0;i--){
+            const p=particles[i];
+
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += .045;
+            p.vx *= .985;
+            p.vy *= .985;
+            p.life -= p.decay;
+
+            ctx.beginPath();
+            ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+            ctx.fillStyle=`hsla(${p.hue},100%,70%,${p.life})`;
+            ctx.fill();
+
+            if(p.life<=0){
+                particles.splice(i,1);
+            }
+        }
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+}   
 })();
 </script>
 </body>
