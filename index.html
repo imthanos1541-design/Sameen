@@ -159,6 +159,7 @@ document.getElementById("finalBtn").addEventListener("click",function(){
  party(); this.textContent="I LOVE YOU. ❤️🥹"; this.disabled=true;
 });
    // Background slideshow
+// Background slideshow
 const backgrounds = [
     "https://raw.githubusercontent.com/imthanos1541-design/Sameen/main/Photo1.JPG",
     "https://raw.githubusercontent.com/imthanos1541-design/Sameen/main/Photo2.JPG",
@@ -171,39 +172,50 @@ const backgrounds = [
     "https://raw.githubusercontent.com/imthanos1541-design/Sameen/main/Photo10.JPG"
 ];
 
-let currentBackground = 0;
+const bg1 = document.createElement("div");
+const bg2 = document.createElement("div");
 
-const bgLayer = document.createElement("div");
+function setupBackground(el) {
+    el.style.position = "fixed";
+    el.style.inset = "0";
+    el.style.backgroundSize = "cover";
+    el.style.backgroundPosition = "center";
+    el.style.backgroundRepeat = "no-repeat";
+    el.style.transition = "opacity 1.5s ease-in-out";
+    el.style.pointerEvents = "none";
+    el.style.zIndex = "0";
+}
 
-Object.assign(bgLayer.style, {
-    position: "fixed",
-    top: "0",
-    left: "0",
-    width: "100%",
-    height: "100%",
-    backgroundImage: `url("${backgrounds[0]}")`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    zIndex: "1",
-    pointerEvents: "none",
-    transition: "opacity 1.5s ease"
+setupBackground(bg1);
+setupBackground(bg2);
+
+bg1.style.backgroundImage = `url("${backgrounds[0]}")`;
+bg1.style.opacity = "1";
+bg2.style.opacity = "0";
+
+document.body.appendChild(bg1);
+document.body.appendChild(bg2);
+
+// Preload all photos
+backgrounds.forEach(src => {
+    const img = new Image();
+    img.src = src;
 });
 
-document.body.appendChild(bgLayer);
+let current = 0;
+let firstVisible = true;
 
 setInterval(() => {
-    currentBackground =
-        (currentBackground + 1) % backgrounds.length;
+    current = (current + 1) % backgrounds.length;
 
-    bgLayer.style.opacity = "0";
+    const next = firstVisible ? bg2 : bg1;
+    const currentLayer = firstVisible ? bg1 : bg2;
 
-    setTimeout(() => {
-        bgLayer.style.backgroundImage =
-            `url("${backgrounds[currentBackground]}")`;
-        bgLayer.style.opacity = "1";
-    }, 750);
+    next.style.backgroundImage = `url("${backgrounds[current]}")`;
+    next.style.opacity = "1";
+    currentLayer.style.opacity = "0";
 
+    firstVisible = !firstVisible;
 }, 5000);
 })();
 </script>
