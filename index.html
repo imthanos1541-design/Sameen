@@ -171,56 +171,57 @@ const photos = [
     "https://raw.githubusercontent.com/imthanos1541-design/Sameen/main/Photo10.JPG"
 ];
 
-const bg = document.createElement("div");
-
-Object.assign(bg.style, {
-    position: "fixed",
-    top: "0",
-    left: "0",
-    width: "100%",
-    height: "100%",
-    zIndex: "0",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    pointerEvents: "none",
-    opacity: "1",
-    transition: "opacity 1.2s ease-in-out"
-});
-
-document.body.appendChild(bg);
-
-let photoIndex = 0;
-
-// Preload every image
+// Preload all photos
 photos.forEach(src => {
     const img = new Image();
     img.src = src;
 });
 
-// Show first image
-bg.style.backgroundImage = `url("${photos[0]}")`;
+// Create two background layers
+const bg1 = document.createElement("div");
+const bg2 = document.createElement("div");
+
+function setupBg(bg) {
+    Object.assign(bg.style, {
+        position: "fixed",
+        top: "0",
+        left: "0",
+        width: "100%",
+        height: "100%",
+        zIndex: "0",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        pointerEvents: "none",
+        transition: "opacity 1.2s ease-in-out"
+    });
+}
+
+setupBg(bg1);
+setupBg(bg2);
+
+bg1.style.backgroundImage = `url("${photos[0]}")`;
+bg1.style.opacity = "1";
+
+bg2.style.opacity = "0";
+
+document.body.appendChild(bg1);
+document.body.appendChild(bg2);
+
+let photoIndex = 0;
+let showingFirst = true;
 
 setInterval(() => {
-    const nextIndex = (photoIndex + 1) % photos.length;
+    photoIndex = (photoIndex + 1) % photos.length;
 
-    // Make sure the next image is loaded before switching
-    const nextImage = new Image();
+    const next = showingFirst ? bg2 : bg1;
+    const current = showingFirst ? bg1 : bg2;
 
-    nextImage.onload = () => {
-        bg.style.opacity = "0";
+    next.style.backgroundImage = `url("${photos[photoIndex]}")`;
+    next.style.opacity = "1";
+    current.style.opacity = "0";
 
-        setTimeout(() => {
-            photoIndex = nextIndex;
-            bg.style.backgroundImage = `url("${photos[photoIndex]}")`;
-
-            requestAnimationFrame(() => {
-                bg.style.opacity = "1";
-            });
-        }, 600);
-    };
-
-    nextImage.src = photos[nextIndex];
+    showingFirst = !showingFirst;
 }, 5000);
    
 })();
